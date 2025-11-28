@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripGenie App — AI Travel Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .animate-bounce-dot { animation: bounce 0.6s infinite; }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-[#0A1628] to-[#1A0A28]">
+
+    <!-- Header -->
+    <header class="border-b border-white/10 bg-black/20 backdrop-blur-sm">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl">✨</span>
+                <span class="text-xl font-bold text-white">TripGenie</span>
+            </div>
+            <div class="text-sm text-white/60">MVP Demo</div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-6 py-8 max-w-4xl">
+
+        <!-- Welcome Screen -->
+        <div id="welcome" class="text-center py-20">
+            <div class="text-6xl mb-6">✨</div>
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                Куда хочешь поехать?
+            </h1>
+            <p class="text-lg text-white/60 mb-8 max-w-md mx-auto">
+                Опиши свою идеальную поездку, и я создам персональный маршрут за секунды
+            </p>
+            <div class="flex flex-wrap justify-center gap-3" id="examples">
+                <button onclick="setQuery('Выходные в Питере, люблю музеи и кофейни')" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white/80 rounded-full text-sm transition-all">
+                    Выходные в Питере, люблю музеи
+                </button>
+                <button onclick="setQuery('Гастро-тур по Италии на неделю с женой')" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white/80 rounded-full text-sm transition-all">
+                    Гастро-тур по Италии на неделю
+                </button>
+                <button onclick="setQuery('Пляжный отдых с детьми до $2000')" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white/80 rounded-full text-sm transition-all">
+                    Пляжный отдых с детьми до $2000
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div id="chat" class="space-y-4 mb-8 hidden"></div>
+
+        <!-- Loading -->
+        <div id="loading" class="hidden flex gap-3 mb-8">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#6B5CE7] to-[#8B7CF7] flex items-center justify-center text-lg">✨</div>
+            <div class="bg-white/10 px-5 py-3 rounded-2xl text-white">
+                <div class="flex gap-1">
+                    <span class="animate-bounce-dot">●</span>
+                    <span class="animate-bounce-dot" style="animation-delay: 0.1s">●</span>
+                    <span class="animate-bounce-dot" style="animation-delay: 0.2s">●</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Itinerary Results -->
+        <div id="itinerary" class="hidden bg-white rounded-3xl p-6 md:p-8 mb-8 shadow-2xl">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 id="dest-title" class="text-2xl font-bold text-gray-900">Чикаго</h2>
+                    <p id="dest-duration" class="text-gray-500">3 дня / 2 ночи</p>
+                </div>
+                <button class="px-5 py-2 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+                    Забронировать всё
+                </button>
+            </div>
+            <div id="itinerary-items" class="space-y-4"></div>
+            <div class="mt-6 pt-6 border-t border-gray-200 flex items-center justify-between">
+                <div class="text-sm text-gray-500">💡 Нажми на любой пункт, чтобы изменить</div>
+                <div id="total-price" class="text-lg font-bold text-gray-900">Итого: ~$1,200</div>
+            </div>
+        </div>
+
+        <!-- Input Form -->
+        <form onsubmit="handleSubmit(event)" class="sticky bottom-6">
+            <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-2 flex gap-2 shadow-2xl border border-white/20">
+                <input
+                    type="text"
+                    id="query-input"
+                    placeholder="Опиши свою идеальную поездку..."
+                    class="flex-1 bg-transparent px-4 py-3 text-white placeholder-white/50 focus:outline-none"
+                />
+                <button
+                    type="submit"
+                    id="submit-btn"
+                    class="px-6 py-3 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+                >
+                    Создать →
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // 🔥 ВСТАВЬ СЮДА СВОЙ WEBHOOK URL ИЗ n8n
+        const WEBHOOK_URL = 'https://твой-n8n.app.n8n.cloud/webhook/tripgenie-chat';
+
+        function setQuery(text) {
+            document.getElementById('query-input').value = text;
+        }
+
+        function addMessage(role, text) {
+            const chat = document.getElementById('chat');
+            chat.classList.remove('hidden');
+
+            const isUser = role === 'user';
+            const msgHtml = `
+                <div class="flex gap-3 ${isUser ? 'justify-end' : 'justify-start'}">
+                    ${!isUser ? '<div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#6B5CE7] to-[#8B7CF7] flex items-center justify-center text-lg flex-shrink-0">✨</div>' : ''}
+                    <div class="max-w-md px-5 py-3 rounded-2xl ${isUser ? 'bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] text-white' : 'bg-white/10 text-white'}">
+                        ${text}
+                    </div>
+                    ${isUser ? '<div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#FF6B6B] to-[#FF8E53] flex items-center justify-center text-lg flex-shrink-0">👤</div>' : ''}
+                </div>
+            `;
+            chat.insertAdjacentHTML('beforeend', msgHtml);
+        }
+
+        async function handleSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('query-input');
+            const query = input.value.trim();
+            if (!query) return;
+
+            // Hide welcome, show chat
+            document.getElementById('welcome').classList.add('hidden');
+
+            // Add user message
+            addMessage('user', query);
+            input.value = '';
+
+            // Show loading
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('submit-btn').disabled = true;
+            document.getElementById('submit-btn').textContent = '...';
+
+            try {
+                // 🔥 РЕАЛЬНЫЙ ЗАПРОС К n8n WEBHOOK
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: query })
+                });
+
+                const data = await response.json();
+
+                // Hide loading
+                document.getElementById('loading').classList.add('hidden');
+
+                // Add AI response
+                if (data.success && data.response) {
+                    addMessage('ai', data.response);
+                } else {
+                    addMessage('ai', 'Упс! Что-то пошло не так. Попробуй ещё раз 🙏');
+                }
+
+            } catch (error) {
+                console.error('Ошибка:', error);
+                document.getElementById('loading').classList.add('hidden');
+                addMessage('ai', '⚠️ Не могу подключиться к AI. Проверь webhook URL в коде или попробуй позже.');
+            }
+
+            // Reset button
+            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('submit-btn').textContent = 'Создать →';
+        }
+    </script>
+</body>
+</html>
