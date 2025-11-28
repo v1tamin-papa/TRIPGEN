@@ -1,0 +1,137 @@
+{
+  "name": "TripGenie AI Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "tripgenie-chat",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "webhook-node",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "tripgenie-chat"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openRouterApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ \"Bearer \" + $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "HTTP-Referer",
+              "value": "https://tripgenie.vercel.app"
+            },
+            {
+              "name": "X-Title",
+              "value": "TripGenie"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": []
+        },
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"anthropic/claude-3.5-sonnet\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Ты TripGenie — AI-агент по планированию путешествий. Твоя задача:\\n\\n1. Понять запрос пользователя (куда, на сколько, бюджет, интересы)\\n2. Создать маршрут в формате:\\n   День 1: Город - места\\n   День 2: ...\\n3. Добавить практические советы (транспорт, еда, лайфхаки)\\n4. Писать дружелюбно, на 'ты', с эмодзи\\n5. Если не хватает данных — задать уточняющие вопросы\\n\\nФормат ответа:\\n📍 Маршрут\\n💡 Советы\\n💰 Примерный бюджет\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"={{ $json.body.message }}\"\n    }\n  ],\n  \"temperature\": 0.7,\n  \"max_tokens\": 1500\n}",
+        "options": {}
+      },
+      "id": "openrouter-node",
+      "name": "OpenRouter API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Извлекаем ответ от AI\nconst aiResponse = $input.item.json.choices[0].message.content;\n\n// Форматируем для фронтенда\nreturn {\n  json: {\n    success: true,\n    response: aiResponse,\n    model: \"Claude 3.5 Sonnet\",\n    timestamp: new Date().toISOString()\n  }\n};"
+      },
+      "id": "code-node",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "response-node",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1000, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "OpenRouter API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter API": {
+      "main": [
+        [
+          {
+            "node": "Format Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-11-26T00:00:00.000Z",
+  "versionId": "1"
+}
