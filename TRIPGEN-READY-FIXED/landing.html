@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripGenie — AI Travel Agent | Plan Trips in Minutes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center bg-gradient-to-br from-[#0A1628] to-[#1A0A28] overflow-hidden">
+        <div class="absolute inset-0 opacity-30" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.03\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+
+        <div class="container mx-auto px-6 lg:px-12 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center py-20">
+                <!-- Hero Text -->
+                <div class="text-white">
+                    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full text-sm mb-6">
+                        <span class="text-[#FF6B6B]">✨</span> AI-Powered Travel Planning
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+                        Stop Planning Trips.<br>
+                        <span class="bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] bg-clip-text text-transparent">Start Taking Them.</span>
+                    </h1>
+
+                    <p class="text-lg md:text-xl text-white/80 mb-8 leading-relaxed max-w-xl">
+                        TripGenie is your AI travel companion that builds perfect, personalized itineraries in minutes—not the 10+ hours you're wasting now.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 mb-12">
+                        <a href="/login" class="inline-flex items-center gap-2 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:-translate-y-0.5 transition-all">
+                            Plan Your First Trip Free →
+                        </a>
+                        <a href="#how-it-works" class="inline-flex items-center gap-2 text-white px-6 py-4 rounded-xl font-medium border border-white/20 hover:bg-white/10 transition-all">
+                            ▶ See how it works
+                        </a>
+                    </div>
+
+                    <!-- Social Proof -->
+                    <div class="flex items-center gap-4">
+                        <div class="flex -space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#667eea] to-[#764ba2] border-2 border-[#0A1628]"></div>
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#f093fb] to-[#f5576c] border-2 border-[#0A1628]"></div>
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#4facfe] to-[#00f2fe] border-2 border-[#0A1628]"></div>
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#43e97b] to-[#38f9d7] border-2 border-[#0A1628]"></div>
+                        </div>
+                        <p class="text-sm text-white/70"><strong class="text-white">2,847</strong> trips planned this week</p>
+                    </div>
+                </div>
+
+                <!-- Hero Visual - Mockup -->
+                <div class="hidden lg:block">
+                    <div class="bg-white rounded-3xl p-6 shadow-2xl">
+                        <div class="flex gap-2 mb-5">
+                            <div class="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+                            <div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+                            <div class="w-3 h-3 rounded-full bg-[#27CA40]"></div>
+                        </div>
+
+                        <div class="bg-gray-50 rounded-2xl p-5 mb-4">
+                            <div class="flex gap-3 mb-4">
+                                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#FF6B6B] to-[#FF8E53] flex items-center justify-center text-sm">👤</div>
+                                <div class="bg-white px-4 py-3 rounded-xl text-sm text-gray-700 shadow-sm">Food-focused weekend in Chicago with my spouse, boutique hotels only</div>
+                            </div>
+                            <div class="flex gap-3">
+                                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#6B5CE7] to-[#8B7CF7] flex items-center justify-center text-sm">✨</div>
+                                <div class="bg-gradient-to-br from-[#6B5CE7] to-[#8B7CF7] px-4 py-3 rounded-xl text-sm text-white">Perfect! I found an amazing itinerary for you...</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                                <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-lg">🏨</div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-sm text-gray-900">The Robey Chicago</h4>
+                                    <p class="text-xs text-gray-500">Wicker Park • Boutique</p>
+                                </div>
+                                <span class="text-sm font-semibold text-emerald-600">$245/night</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                                <div class="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center text-lg">✈️</div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-sm text-gray-900">United 847</h4>
+                                    <p class="text-xs text-gray-500">JFK → ORD • 2h 45m</p>
+                                </div>
+                                <span class="text-sm font-semibold text-emerald-600">$312</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                                <div class="w-10 h-10 rounded-lg bg-pink-100 flex items-center justify-center text-lg">🍽️</div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-sm text-gray-900">Girl & The Goat</h4>
+                                    <p class="text-xs text-gray-500">Friday 7:30pm • Reserved</p>
+                                </div>
+                                <span class="text-sm font-semibold text-emerald-600">Booked</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="bg-gray-50 py-16">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-wrap justify-center gap-12 md:gap-20">
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-extrabold text-gray-900">47,000+</div>
+                    <div class="text-sm text-gray-500 mt-1">Trips Planned</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-extrabold text-gray-900">4.2 hours</div>
+                    <div class="text-sm text-gray-500 mt-1">Saved Per Trip</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-extrabold text-gray-900">98%</div>
+                    <div class="text-sm text-gray-500 mt-1">Would Recommend</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-extrabold text-gray-900">⭐ 4.9</div>
+                    <div class="text-sm text-gray-500 mt-1">Average Rating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="inline-block bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">The Problem</span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4">Travel Planning Has Become a Full-Time Job</h2>
+                <p class="text-lg text-gray-500">That you didn't sign up for</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:border-[#FF6B6B] hover:shadow-xl transition-all">
+                    <div class="text-5xl mb-4">⏰</div>
+                    <h3 class="text-xl font-bold mb-3">10+ Hours. Every. Single. Trip.</h3>
+                    <p class="text-gray-500">Between flight comparisons, hotel reviews, restaurant research, and activity planning, you're spending more time planning than traveling.</p>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:border-[#FF6B6B] hover:shadow-xl transition-all">
+                    <div class="text-5xl mb-4">📑</div>
+                    <h3 class="text-xl font-bold mb-3">27 Browser Tabs of Overwhelm</h3>
+                    <p class="text-gray-500">Kayak for flights. Booking.com for hotels. Yelp for restaurants. TripAdvisor for activities. Google Maps to connect it all.</p>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:border-[#FF6B6B] hover:shadow-xl transition-all">
+                    <div class="text-5xl mb-4">😤</div>
+                    <h3 class="text-xl font-bold mb-3">Generic Recommendations That Miss the Mark</h3>
+                    <p class="text-gray-500">Every travel site gives you the same tourist traps. Where are the hidden gems that actually match YOUR vibe?</p>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-2xl p-8 hover:border-[#FF6B6B] hover:shadow-xl transition-all">
+                    <div class="text-5xl mb-4">💸</div>
+                    <h3 class="text-xl font-bold mb-3">Analysis Paralysis Costs Real Money</h3>
+                    <p class="text-gray-500">While you're comparing 47 hotel options, the best prices disappear. Indecision isn't free.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="py-24 bg-gradient-to-br from-[#0A1628] to-[#1A0A28] text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="inline-block bg-[#FF6B6B]/20 text-[#FF6B6B] px-4 py-2 rounded-full text-sm font-semibold mb-4">The Solution</span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4">Meet TripGenie: Your Personal Travel Agent</h2>
+                <p class="text-lg text-white/70">No more generic results. No more endless searching. Just tell us what you want.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-all">
+                    <div class="w-16 h-16 bg-gradient-to-br from-[#FF6B6B] to-[#FF8E53] rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5">⚡</div>
+                    <h3 class="text-lg font-bold mb-3">Minutes, Not Hours</h3>
+                    <p class="text-sm text-white/70">Get a complete, bookable itinerary before you finish your coffee.</p>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-all">
+                    <div class="w-16 h-16 bg-gradient-to-br from-[#FF6B6B] to-[#FF8E53] rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5">🎯</div>
+                    <h3 class="text-lg font-bold mb-3">Eerily Accurate</h3>
+                    <p class="text-sm text-white/70">TripGenie remembers your preferences and gets smarter with every trip.</p>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-all">
+                    <div class="w-16 h-16 bg-gradient-to-br from-[#FF6B6B] to-[#FF8E53] rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5">🔗</div>
+                    <h3 class="text-lg font-bold mb-3">All-in-One</h3>
+                    <p class="text-sm text-white/70">Flights, hotels, restaurants, activities—all in one interface.</p>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-8 text-center hover:bg-white/10 transition-all">
+                    <div class="w-16 h-16 bg-gradient-to-br from-[#FF6B6B] to-[#FF8E53] rounded-2xl flex items-center justify-center text-3xl mx-auto mb-5">🔔</div>
+                    <h3 class="text-lg font-bold mb-3">Always Watching</h3>
+                    <p class="text-sm text-white/70">We'll alert you when prices drop or better options appear.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="inline-block bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">How It Works</span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4">Three Steps to Your Perfect Trip</h2>
+                <p class="text-lg text-gray-500">No forms. No filters. No friction. Just conversation.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto relative">
+                <div class="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-[#FF6B6B] to-[#6B5CE7]"></div>
+
+                <div class="text-center relative">
+                    <div class="w-20 h-20 bg-gradient-to-br from-[#FF6B6B] to-[#FF8E53] rounded-full flex items-center justify-center text-3xl font-extrabold text-white mx-auto mb-6 shadow-lg">1</div>
+                    <h3 class="text-xl font-bold mb-3">Tell Us What You Want</h3>
+                    <p class="text-gray-500 max-w-xs mx-auto">Type naturally: "Anniversary trip to Italy, 10 days, we love wine and hate crowds."</p>
+                </div>
+                <div class="text-center relative">
+                    <div class="w-20 h-20 bg-gradient-to-br from-[#FF6B6B] to-[#FF8E53] rounded-full flex items-center justify-center text-3xl font-extrabold text-white mx-auto mb-6 shadow-lg">2</div>
+                    <h3 class="text-xl font-bold mb-3">Watch the Magic Happen</h3>
+                    <p class="text-gray-500 max-w-xs mx-auto">TripGenie crafts a personalized itinerary in about 90 seconds.</p>
+                </div>
+                <div class="text-center relative">
+                    <div class="w-20 h-20 bg-gradient-to-br from-[#FF6B6B] to-[#FF8E53] rounded-full flex items-center justify-center text-3xl font-extrabold text-white mx-auto mb-6 shadow-lg">3</div>
+                    <h3 class="text-xl font-bold mb-3">Review, Tweak, Book</h3>
+                    <p class="text-gray-500 max-w-xs mx-auto">Love it? Book with one click. Want changes? Just say "swap the hotel."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-24 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="inline-block bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">Features</span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4">Everything You Need. Nothing You Don't.</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div class="bg-white rounded-2xl p-8 hover:shadow-xl transition-all">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center text-2xl mb-5">🧬</div>
+                    <h3 class="text-lg font-bold mb-3">Smart Preference Learning</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">TripGenie learns your preferences—aisle seats, no early flights, local coffee shops over chains.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-8 hover:shadow-xl transition-all">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center text-2xl mb-5">💎</div>
+                    <h3 class="text-lg font-bold mb-3">Hidden Gem Discovery</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">We surface boutique hotels and local restaurants that don't show up on the first page of Google.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-8 hover:shadow-xl transition-all">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center text-2xl mb-5">📉</div>
+                    <h3 class="text-lg font-bold mb-3">Real-Time Price Monitoring</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">TripGenie watches your bookings and alerts you when prices drop.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-8 hover:shadow-xl transition-all">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center text-2xl mb-5">👆</div>
+                    <h3 class="text-lg font-bold mb-3">One-Click Booking</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Hotels, flights, reservations, tickets—all bookable directly through TripGenie.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-8 hover:shadow-xl transition-all">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center text-2xl mb-5">📅</div>
+                    <h3 class="text-lg font-bold mb-3">Calendar Integration</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Your itinerary flows straight into Google Calendar or iCal automatically.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-8 hover:shadow-xl transition-all">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center text-2xl mb-5">🛡️</div>
+                    <h3 class="text-lg font-bold mb-3">Trip Updates & Alerts</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Flight delayed? Gate changed? Get real-time alerts and alternative suggestions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="inline-block bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">Testimonials</span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4">Join 47,000+ Travelers Who Got Their Weekends Back</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div class="lg:col-span-2 bg-gradient-to-br from-[#0A1628] to-[#1A0A28] text-white rounded-3xl p-10">
+                    <div class="text-amber-400 text-xl mb-6">⭐⭐⭐⭐⭐</div>
+                    <p class="text-xl leading-relaxed mb-8">"I'm a consultant who travels 30+ weeks a year. TripGenie has genuinely changed my life. What used to take me 3-4 hours now takes 5 minutes, and the recommendations are actually better than what I'd find myself."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#667eea] to-[#764ba2]"></div>
+                        <div>
+                            <div class="font-bold">Marcus Thompson</div>
+                            <div class="text-sm text-white/60">Senior Consultant, McKinsey</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-white border border-gray-200 rounded-2xl p-6">
+                        <div class="text-amber-400 mb-4">⭐⭐⭐⭐⭐</div>
+                        <p class="text-gray-600 mb-6">"We have two kids under 5. Planning family trips used to mean staying up until midnight. Now I just tell TripGenie what we need."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#f093fb] to-[#f5576c]"></div>
+                            <div>
+                                <div class="font-semibold text-sm">Jennifer Park</div>
+                                <div class="text-xs text-gray-500">Mom of 2, Seattle</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-2xl p-6">
+                        <div class="text-amber-400 mb-4">⭐⭐⭐⭐⭐</div>
+                        <p class="text-gray-600 mb-6">"TripGenie is the first travel app that actually feels intelligent. It's like texting a friend who's a travel expert."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#4facfe] to-[#00f2fe]"></div>
+                            <div>
+                                <div class="font-semibold text-sm">Alex Rivera</div>
+                                <div class="text-xs text-gray-500">Travel Blogger, 125K followers</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-24 bg-gradient-to-br from-[#0A1628] to-[#1A0A28] text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="inline-block bg-[#FF6B6B]/20 text-[#FF6B6B] px-4 py-2 rounded-full text-sm font-semibold mb-4">Pricing</span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4">One Plan. Everything Included.</h2>
+                <p class="text-lg text-white/70">No tiers to compare. No features held hostage. No surprises.</p>
+            </div>
+
+            <div class="max-w-md mx-auto bg-white rounded-3xl p-10 text-gray-900">
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold mb-2">TripGenie Pro</h3>
+                    <div class="text-6xl font-extrabold mb-2">$29<span class="text-xl font-medium text-gray-500">/month</span></div>
+                    <p class="text-emerald-600 text-sm mb-8">or $249/year — save $99</p>
+                </div>
+
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center gap-3 py-3 border-b border-gray-100"><span class="text-emerald-600">✓</span><span class="text-sm">Unlimited trip planning</span></li>
+                    <li class="flex items-center gap-3 py-3 border-b border-gray-100"><span class="text-emerald-600">✓</span><span class="text-sm">Unlimited itinerary revisions</span></li>
+                    <li class="flex items-center gap-3 py-3 border-b border-gray-100"><span class="text-emerald-600">✓</span><span class="text-sm">Full preference learning</span></li>
+                    <li class="flex items-center gap-3 py-3 border-b border-gray-100"><span class="text-emerald-600">✓</span><span class="text-sm">One-click booking integration</span></li>
+                    <li class="flex items-center gap-3 py-3 border-b border-gray-100"><span class="text-emerald-600">✓</span><span class="text-sm">Real-time price monitoring</span></li>
+                    <li class="flex items-center gap-3 py-3 border-b border-gray-100"><span class="text-emerald-600">✓</span><span class="text-sm">Calendar sync</span></li>
+                    <li class="flex items-center gap-3 py-3 border-b border-gray-100"><span class="text-emerald-600">✓</span><span class="text-sm">24/7 chat support</span></li>
+                    <li class="flex items-center gap-3 py-3"><span class="text-emerald-600">✓</span><span class="text-sm">Mobile app access</span></li>
+                </ul>
+
+                <a href="/login" class="block w-full text-center bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] text-white py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all">Start Your Free Trial →</a>
+                <p class="text-center text-sm text-gray-500 mt-4">14-day free trial. No credit card required.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="inline-block bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">FAQ</span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4">Questions? We've Got Answers.</h2>
+            </div>
+
+            <div class="max-w-2xl mx-auto">
+                <div class="border-b border-gray-200 py-6">
+                    <button onclick="this.parentElement.classList.toggle('open')" class="w-full flex justify-between items-center text-left">
+                        <span class="font-semibold text-lg">How is this different from ChatGPT?</span>
+                        <span class="text-2xl text-[#FF6B6B]">+</span>
+                    </button>
+                    <p class="mt-4 text-gray-500 leading-relaxed hidden">ChatGPT can suggest ideas, but it can't check real-time availability, compare actual prices, or book anything. TripGenie is connected to live inventory—everything we recommend is actually bookable.</p>
+                </div>
+                <div class="border-b border-gray-200 py-6">
+                    <button onclick="this.parentElement.classList.toggle('open')" class="w-full flex justify-between items-center text-left">
+                        <span class="font-semibold text-lg">What if I don't like the itinerary?</span>
+                        <span class="text-2xl text-[#FF6B6B]">+</span>
+                    </button>
+                    <p class="mt-4 text-gray-500 leading-relaxed hidden">Just tell it what to change, in plain English. "Swap the hotel for something cheaper." TripGenie adapts in seconds. Unlimited revisions, always.</p>
+                </div>
+                <div class="border-b border-gray-200 py-6">
+                    <button onclick="this.parentElement.classList.toggle('open')" class="w-full flex justify-between items-center text-left">
+                        <span class="font-semibold text-lg">Is my data safe?</span>
+                        <span class="text-2xl text-[#FF6B6B]">+</span>
+                    </button>
+                    <p class="mt-4 text-gray-500 leading-relaxed hidden">Your travel preferences and personal information are encrypted and never sold to third parties. We make money from your subscription—not from your data.</p>
+                </div>
+                <div class="border-b border-gray-200 py-6">
+                    <button onclick="this.parentElement.classList.toggle('open')" class="w-full flex justify-between items-center text-left">
+                        <span class="font-semibold text-lg">Is there a free trial?</span>
+                        <span class="text-2xl text-[#FF6B6B]">+</span>
+                    </button>
+                    <p class="mt-4 text-gray-500 leading-relaxed hidden">Yes! 14 days completely free, no credit card required. Plan a trip (or three), see how much time you save, then decide if it's worth $29/month.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .open p { display: block !important; }
+        .open button span:last-child { transform: rotate(45deg); }
+    </style>
+
+    <!-- Final CTA -->
+    <section class="py-24 bg-gradient-to-br from-[#0A1628] to-[#1A0A28] text-white text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6">Your Next Adventure is 2 Minutes Away</h2>
+            <p class="text-xl text-white/80 max-w-xl mx-auto mb-10">Join 47,000+ travelers who've ditched the spreadsheets and started actually enjoying travel planning.</p>
+            <a href="/login" class="inline-flex items-center gap-2 bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] text-white px-10 py-5 rounded-xl font-semibold text-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">Start Planning for Free →</a>
+            <p class="mt-6 text-sm text-white/50">🛡️ 14-day free trial • No credit card required • Cancel anytime</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#050A12] text-white py-20">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <h3 class="text-2xl font-extrabold mb-4">TripGenie ✨</h3>
+                    <p class="text-white/50 mb-6">Travel planning, finally solved.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#FF6B6B] transition-colors">𝕏</a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#FF6B6B] transition-colors">in</a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#FF6B6B] transition-colors">📷</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-5">Product</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-white/50 hover:text-white transition-colors">How It Works</a></li>
+                        <li><a href="#" class="text-white/50 hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#" class="text-white/50 hover:text-white transition-colors">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-5">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-white/50 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-white/50 hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="text-white/50 hover:text-white transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-5">Support</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-white/50 hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="text-white/50 hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-white/30 text-sm">© 2025 TripGenie, Inc. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="text-white/30 text-sm hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-white/30 text-sm hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
